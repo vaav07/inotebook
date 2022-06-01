@@ -4,9 +4,11 @@ import { useState } from "react";
 
 const NoteState = (props) => {
  const notesInitial = [
-{"title":"My Title",
+{ "_id": "sdbabdsad5s45ad4",
+    "title":"My Title",
 "description": "Wake up early"},
-{"title":"My Title 2",
+{"_id": "sdbsadabdsad5s45ad4",
+    "title":"My Title 2",
 "description": "Wake up early 2"}
  ]
 
