@@ -1,9 +1,14 @@
-import React from 'react'
+import React from "react";
+import { useContext, useEffect } from "react";
+
 
 const About = () => {
+ 
   return (
-    <div>This is About</div>
-  )
-}
+    <div>
+      This is About
+    </div>
+  );
+};
 
-export default About
+export default About;
