@@ -11,7 +11,7 @@ function App() {
     <>
       <NoteState>
         <Navbar />
-        <Alert message="This is jodd"/>
+        <Alert message="This is jodd" />
         <div className="container">
           <Routes>
             <Route path="/" element={<Home />} />
