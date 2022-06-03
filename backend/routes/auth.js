@@ -6,7 +6,6 @@ const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const fetchuser = require("../middleware/fetchuser");
 
-
 const JWT_SECRET = "Vaavisagood$gamer";
 
 // Route 1 Create a User using: POST "/api/auth/createuser".no login require
@@ -70,6 +69,7 @@ router.post(
     body("password", "Password cannot be wrong").exists(),
   ],
   async (req, res) => {
+    let success = false;
     // if ther are errors, return bad request and errors
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -80,6 +80,7 @@ router.post(
     try {
       let user = await User.findOne({ email });
       if (!user) {
+        success = false
         return res
           .status(400)
           .json({ error: "Please try to login with correct credentials" });
@@ -87,9 +88,10 @@ router.post(
 
       const passwordCompare = await bcrypt.compare(password, user.password);
       if (!passwordCompare) {
+        success = false
         return res
           .status(400)
-          .json({ error: "Please try to login with correct credentials" });
+          .json({ success, error: "Please try to login with correct credentials" });
       }
 
       const data = {
@@ -98,7 +100,8 @@ router.post(
         },
       };
       const authtoken = jwt.sign(data, JWT_SECRET);
-      res.json({ authtoken });
+      success = true;
+      res.json({ success, authtoken });
     } catch (error) {
       console.log(error.message);
       res.status(500).send("Internal  Error occured");
@@ -106,22 +109,17 @@ router.post(
   }
 );
 
-
 // Route 3 GEt logged in User details using : post "/api/auth/getuser"  login required
 
-router.post(
-    "/getuser", fetchuser,
-    async (req, res) => {
-
-try {
+router.post("/getuser", fetchuser, async (req, res) => {
+  try {
     let userId = req.user.id;
-    const user = await User.findById(userId).select("-password")
-    res.send(user)
-} catch (error) {
+    const user = await User.findById(userId).select("-password");
+    res.send(user);
+  } catch (error) {
     console.log(error.message);
     res.status(500).send("Internal  Error occured");
   }
-    
-    })
+});
 
 module.exports = router;

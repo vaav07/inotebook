@@ -52,9 +52,8 @@ const Navbar = () => {
               placeholder="Search"
               aria-label="Search"
             />
-            <button className="btn btn-outline-success" type="submit">
-              Search
-            </button>
+            <Link className="btn btn-primary mx-1" to="/login" role="button">Login</Link>
+            <Link className="btn btn-primary mx-1" to="/signup" role="button">SignUp</Link>
           </form>
         </div>
       </div>
