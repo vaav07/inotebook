@@ -14,7 +14,7 @@ const NoteState = (props) => {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
-        "auth-token": "gjhghjghff",
+        "auth-token": localStorage.getItem('token')
       },
     });
     const json = await response.json();
@@ -31,7 +31,7 @@ const NoteState = (props) => {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "auth-token": "gjhghjghff",
+        "auth-token": localStorage.getItem('token')
       },
 
       body: JSON.stringify({ title, description, tag }),
@@ -48,11 +48,11 @@ const NoteState = (props) => {
       method: "DELETE",
       headers: {
         "Content-Type": "application/json",
-        "auth-token": "gjhghjghff",
+        "auth-token": localStorage.getItem('token')
       },
     });
     const json = response.json();
-    //   console.log(json)
+      console.log(json)
 
     // console.log("deleting the note with id" + id);
     const newNotes = notes.filter((note) => {
@@ -68,13 +68,13 @@ const NoteState = (props) => {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        "auth-token": "gjhghjghff",
+        "auth-token": localStorage.getItem('token')
       },
 
       body: JSON.stringify({ title, description, tag }),
     });
     const json = await response.json();
-    // console.log(json);
+    console.log(json);
 
     let newNotes = JSON.parse(JSON.stringify(notes));
     // logic to edit in client
